@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>{{ page.title }}</title>
+        <meta name="description" content="CellOut Podcast website">
+        <meta name="author" content="Ford Fishman">
+        <meta name="keywords" content="CellOut, Derek DeVries, Ford Fishman, PLOS Biology, biology podcast, open science, science communication">
+        <!-- Mobile friendly element -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <script src="/js/xml.js"></script>
+        <!-- Favicon -->
+        <!-- <link rel="apple-touch-icon" sizes="180x180" href="/files/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/files/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/files/favicon-16x16.png">
+        <link rel="manifest" href="/files/site.webmanifest"> -->
+
+    </head>
+    <body onload="loadXMLDoc()">
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about/">About</a></li>
+            </ul>
+
+        </nav>
+
+
+        <div class="container">
+        
+            {{ content }}
+    
+        </div>
+        
+        <footer>
+            <div class="container">
+                <div class="row container">
+                    <div class="col-12 text-center">
+                        <br>
+                        <ul>
+                            <li>
+                                <a href="mailto:celloutpod@gmail.com">email</a>
+                            </li>
+                            <li>
+                                <a href="https://twitter.com/CellOutPodcast">@CellOutPodcast</a>
+                            </li>
+                            <li>
+                                <a href="https://open.spotify.com/show/1MLpOXv99NdHUY7r8AN67a?si=475acae7e3624e8f">spotify</a>
+                            </li>
+                            <li>
+                                <a href="https://podcasts.apple.com/us/podcast/cellout/id1614358995">apple podcasts</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://anchor.fm/cellout">anchor</a>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </footer>
+        <script>
+
+        
+
+        </script>
+
+        
+        <!-- <script>
+            function navbars() {
+              var x = document.getElementById("links");
+              if (x.style.display === "block") {
+                x.style.display = "none";
+              } else {
+                x.style.display = "block";
+              }
+            }
+            </script> -->
+    </body>
+</html>

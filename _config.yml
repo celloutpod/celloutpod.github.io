@@ -1,0 +1,7 @@
+name: CellOut Podcast
+markdown: kramdown
+permalink: /blog/:year/:month/:day/:title
+plugins: 
+  - jekyll-feed
+title: CellOut Podcast
+author: Ford Fishman
