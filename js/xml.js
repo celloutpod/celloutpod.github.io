@@ -19,10 +19,7 @@ function addToRow(row, className, ele){
 
 function date(string){
     var d = new Date(string);
-    var day=d.getDate();
-    var month=d.getMonth();
-    var year=d.getFullYear();
-    var dateString = month + "/" + day + "/" + year;
+    var dateString = d.getMonth() + "/" + d.getDate() + "/" + d.getFullYear();
     return(dateString);
 }
 
@@ -45,7 +42,7 @@ function episodes(xml) {
         img.src = src;
         img.className="img-fluid";
         img.style.maxWidth="100%";
-        row=addToRow(row, "col-2", img);
+        row=addToRow(row, "col-3", img);
         // get name and time
         var title=x[i].getElementsByTagName("title")[0].childNodes[0].nodeValue;
         var rawDate=x[i].getElementsByTagName("pubDate")[0].childNodes[0].nodeValue;
@@ -56,19 +53,19 @@ function episodes(xml) {
         "<br>";
         var p=document.createElement("p");
         p.innerHTML=text;
-        row=addToRow(row,"col-3",p);
+        row=addToRow(row,"col-2",p);
         // add description
         var desc=x[i].getElementsByTagName("description")[0].childNodes[0].substringData(0,500).split("</p>")[0];
         var p2=document.createElement("p");
         p2.innerHTML=desc;
 
         row=addToRow(row, "col-7",p2);
-        
-        row.style.paddingTop="10px";
-        row.style.paddingBottom="10px";
+        row.style.paddingTop="20px";
+        row.style.paddingBottom="20px";
 
         a.appendChild(row);
         container.appendChild(a);
+        container.appendChild(document.createElement("br"));
         document.getElementById("c1").appendChild(container);
     }
 

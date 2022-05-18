@@ -8,6 +8,17 @@ a {
     text-decoration: none;
 }
 
+a div.row {
+    color: white;
+    background: #000000de;
+}
+
+a div.row:hover{
+    background: #000000a3;
+    transition: all 0.35s;
+}
+
+
 nav ul {
     list-style-type: none;
     list-style: none;
