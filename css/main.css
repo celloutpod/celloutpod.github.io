@@ -1,6 +1,15 @@
+@font-face {
+    font-family: LoveOfThunder;
+    src: url(/fonts/ALoveofThunder.ttf);
+}
+
 body {
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 16pt;
+}
+
+.thunder-word {
+    font-family: LoveOfThunder;
 }
 
 a {
@@ -9,11 +18,12 @@ a {
 }
 
 a div.row {
-    color: white;
+    color: #d7d7d7;
     background: #000000de;
 }
 
 a div.row:hover{
+    color: white;
     background: #000000a3;
     transition: all 0.35s;
 }

@@ -42,24 +42,29 @@ function episodes(xml) {
         img.src = src;
         img.className="img-fluid";
         img.style.maxWidth="100%";
-        row=addToRow(row, "col-3", img);
-        // get name and time
-        var title=x[i].getElementsByTagName("title")[0].childNodes[0].nodeValue;
+        row=addToRow(row, "col-6 col-md-2", img);
+        // get name and time and duration
         var rawDate=x[i].getElementsByTagName("pubDate")[0].childNodes[0].nodeValue;
         var dateString = date(rawDate);
-        var text=title +
+        var duration=x[i].getElementsByTagName("itunes:duration")[0].childNodes[0].nodeValue;
+        var min=Math.floor(duration/60);
+        // var s=Math.round((duration/60-min)*60);
+        var text=
+        x[i].getElementsByTagName("title")[0].childNodes[0].nodeValue +
         "<br>" +
         dateString +
-        "<br>";
+        "<br>" +
+        min + " min";
+        // min + "min, " + s + "s";
         var p=document.createElement("p");
         p.innerHTML=text;
-        row=addToRow(row,"col-2",p);
+        row=addToRow(row,"col-6 col-md-3",p);
         // add description
         var desc=x[i].getElementsByTagName("description")[0].childNodes[0].substringData(0,500).split("</p>")[0];
         var p2=document.createElement("p");
         p2.innerHTML=desc;
 
-        row=addToRow(row, "col-7",p2);
+        row=addToRow(row, "d-none d-md-block col-12 col-md-7",p2);
         row.style.paddingTop="20px";
         row.style.paddingBottom="20px";
 
