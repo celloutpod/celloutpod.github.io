@@ -23,6 +23,57 @@ function date(string){
     return(dateString);
 }
 
+function makeModal(title, description, id, url){
+    var modal=document.createElement("div");
+    modal.className="modal fade";
+    modal.id=id;
+    // dialogue
+    var dialogue=document.createElement("div");
+    dialogue.className="modal-dialog modal-dialog-centered modal-lg";
+    // content
+    var content=document.createElement("div");
+    content.className="modal-content";
+    // header
+    var header=document.createElement("div");
+    header.className="modal-header";
+    // title
+    var modalTitle=document.createElement("h4");
+    modalTitle.innerHTML=title;
+    modalTitle.className="modal-title";
+    header.appendChild(modalTitle);
+    // close button
+    var button=document.createElement("button");
+    button.type="button";
+    button.className="btn-close";
+    var dataBsDismiss=document.createAttribute("data-bs-dismiss");
+    dataBsDismiss.value="modal";
+    button.setAttributeNode(dataBsDismiss);
+    header.appendChild(button);
+    // body
+    var modalBody=document.createElement("div");
+    modalBody.className="modal-body";
+    var container=document.createElement("div");
+    container.className="container";
+    container.innerHTML=description;   
+    // audio
+    var audio=document.createElement("audio");
+    audio.controls="controls";
+    audio.autoplay="autoplay";
+    var source=document.createElement("source");
+    source.src=url;
+    source.type="audio/mp4";
+    audio.appendChild(source);
+    modalBody.appendChild(audio);
+    modalBody.appendChild(container);
+
+    content.appendChild(header);
+    content.appendChild(modalBody);
+    dialogue.appendChild(content);
+    modal.appendChild(dialogue);
+    return(modal);
+
+}
+
 function episodes(xml) {
     var xmlDoc = xml.responseXML;
     var container=document.createElement("div");
@@ -32,7 +83,12 @@ function episodes(xml) {
     for (var i = 0; i < x.length; i++) { 
         // create anchor
         var a=document.createElement("a");
-        a.href=x[i].getElementsByTagName("link")[0].childNodes[0].nodeValue;
+        var title=x[i].getElementsByTagName("title")[0].childNodes[0].nodeValue;
+        var tag=title.replace(/\s/g, '');
+        a.href="#"+tag;
+        var dataBsToggle=document.createAttribute("data-bs-toggle");
+        dataBsToggle.value="modal";
+        a.setAttributeNode(dataBsToggle);
         // create row
         var row=document.createElement("div");
         row.className="row container border rounded";
@@ -50,7 +106,7 @@ function episodes(xml) {
         var min=Math.floor(duration/60);
         // var s=Math.round((duration/60-min)*60);
         var text=
-        x[i].getElementsByTagName("title")[0].childNodes[0].nodeValue +
+        title +
         "<br>" +
         dateString +
         "<br>" +
@@ -69,7 +125,13 @@ function episodes(xml) {
         row.style.paddingBottom="20px";
 
         a.appendChild(row);
+
+        var description=x[i].getElementsByTagName("description")[0].childNodes[0].nodeValue
+        var audioUrl=x[i].getElementsByTagName("enclosure")[0].getAttributeNode("url").nodeValue
+        var modal=makeModal(title, description, tag, audioUrl);
+
         container.appendChild(a);
+        container.appendChild(modal);
         container.appendChild(document.createElement("br"));
         document.getElementById("c1").appendChild(container);
     }

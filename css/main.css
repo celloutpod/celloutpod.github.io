@@ -17,6 +17,11 @@ a {
     text-decoration: none;
 }
 
+div.row.container {
+    margin:0;
+    
+}
+
 a div.row {
     color: #d7d7d7;
     background: #000000de;
