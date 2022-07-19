@@ -23,6 +23,13 @@ function date(string){
     return(dateString);
 }
 
+function srcConvert(string){
+    var parts=string.split("/");
+    var name=parts[parts.length - 1];
+    var url="https://anchor.fm/cellout/embed/episodes/"+name;
+    return(url);
+}
+
 function makeModal(title, description, id, url){
     var modal=document.createElement("div");
     modal.className="modal fade";
@@ -56,14 +63,24 @@ function makeModal(title, description, id, url){
     container.className="container";
     container.innerHTML=description;   
     // audio
-    var audio=document.createElement("audio");
-    audio.controls="controls";
-    audio.autoplay="autoplay";
-    var source=document.createElement("source");
-    source.src=url;
-    source.type="audio/mp4";
-    audio.appendChild(source);
-    modalBody.appendChild(audio);
+    // var audio=document.createElement("audio");
+    // audio.controls="controls";
+    // var source=document.createElement("source");
+    // source.src=url;
+    // source.type="audio/mp4";
+    // iframe
+    var iframe=document.createElement("iframe");
+    iframe.src=srcConvert(url);
+    iframe.height="100px";
+    iframe.width="100%";
+    iframe.frameborder="0";
+    iframe.scrolling="no";
+    // audio.appendChild(source);
+
+    var container1=document.createElement("div");
+    container1.className="container";
+    container1.appendChild(iframe);    
+    modalBody.appendChild(container1);
     modalBody.appendChild(container);
 
     content.appendChild(header);
@@ -127,8 +144,9 @@ function episodes(xml) {
         a.appendChild(row);
 
         var description=x[i].getElementsByTagName("description")[0].childNodes[0].nodeValue
-        var audioUrl=x[i].getElementsByTagName("enclosure")[0].getAttributeNode("url").nodeValue
-        var modal=makeModal(title, description, tag, audioUrl);
+        // var audioUrl=x[i].getElementsByTagName("enclosure")[0].getAttributeNode("url").nodeValue
+        var src=x[i].getElementsByTagName("link")[0].childNodes[0].nodeValue
+        var modal=makeModal(title, description, tag, src);
 
         container.appendChild(a);
         container.appendChild(modal);
