@@ -56,6 +56,8 @@ function makeModal(title, description, id, url){
     dataBsDismiss.value="modal";
     button.setAttributeNode(dataBsDismiss);
     header.appendChild(button);
+    // button.onclick=delIframe(id);
+    button.addEventListener('click', delIframe);
     // body
     var modalBody=document.createElement("div");
     modalBody.className="modal-body";
@@ -68,18 +70,19 @@ function makeModal(title, description, id, url){
     // var source=document.createElement("source");
     // source.src=url;
     // source.type="audio/mp4";
+
     // iframe
-    var iframe=document.createElement("iframe");
-    iframe.src=srcConvert(url);
-    iframe.height="100px";
-    iframe.width="100%";
-    iframe.frameborder="0";
-    iframe.scrolling="no";
-    // audio.appendChild(source);
+    // var iframe=document.createElement("iframe");
+    // iframe.src=srcConvert(url);
+    // iframe.height="100px";
+    // iframe.width="100%";
+    // iframe.frameborder="0";
+    // iframe.scrolling="no";
 
     var container1=document.createElement("div");
     container1.className="container";
-    container1.appendChild(iframe);    
+    // container1.appendChild(iframe); 
+    container1.id=id + " iframeContainer";   
     modalBody.appendChild(container1);
     modalBody.appendChild(container);
 
@@ -89,6 +92,32 @@ function makeModal(title, description, id, url){
     modal.appendChild(dialogue);
     return(modal);
 
+}
+
+function makeIframe(){
+    var parentID=this.getAttribute("modalID");
+    var url=this.getAttribute("url");
+    var iframeContainer=document.getElementById(parentID + " iframeContainer");
+
+    var iframe=document.createElement("iframe");
+    iframe.src=srcConvert(url);
+    iframe.height="100px";
+    iframe.width="100%";
+    iframe.frameborder="0";
+    iframe.scrolling="no";
+
+    iframeContainer.appendChild(iframe);
+
+    
+}
+
+function delIframe(){
+    var parent=this.parentNode.parentNode.parentNode.parentNode;
+    // var parent=document.getElementById(parentID); // modal ID
+    var iframe=parent.getElementsByTagName('IFRAME')[0]; // find iframe
+    var iframeContainer=document.getElementById(parent.id+" iframeContainer");
+    iframeContainer.removeChild(iframe); // remove it to stop playing audio
+    return;
 }
 
 function episodes(xml) {
@@ -143,11 +172,15 @@ function episodes(xml) {
 
         a.appendChild(row);
 
-        var description=x[i].getElementsByTagName("description")[0].childNodes[0].nodeValue
-        // var audioUrl=x[i].getElementsByTagName("enclosure")[0].getAttributeNode("url").nodeValue
-        var src=x[i].getElementsByTagName("link")[0].childNodes[0].nodeValue
-        var modal=makeModal(title, description, tag, src);
 
+        var description=x[i].getElementsByTagName("description")[0].childNodes[0].nodeValue;
+        // var audioUrl=x[i].getElementsByTagName("enclosure")[0].getAttributeNode("url").nodeValue
+        var src=x[i].getElementsByTagName("link")[0].childNodes[0].nodeValue;
+        a.setAttribute('url', src);
+        a.setAttribute('modalID', tag);
+        a.addEventListener('click', makeIframe); 
+        var modal=makeModal(title, description, tag, src);
+;
         container.appendChild(a);
         container.appendChild(modal);
         container.appendChild(document.createElement("br"));
