@@ -30,10 +30,14 @@ function srcConvert(string){
     return(url);
 }
 
-function makeModal(title, description, id, url){
+function makeModal(title, description, id){
     var modal=document.createElement("div");
     modal.className="modal fade";
     modal.id=id;
+    var dataBsKeyboard=document.createAttribute("data-bs-keyboard");
+    dataBsKeyboard.value="false";
+    modal.setAttributeNode(dataBsKeyboard);
+    modal.addEventListener('hidden.bs.modal', delIframe);
     // dialogue
     var dialogue=document.createElement("div");
     dialogue.className="modal-dialog modal-dialog-centered modal-lg";
@@ -56,28 +60,13 @@ function makeModal(title, description, id, url){
     dataBsDismiss.value="modal";
     button.setAttributeNode(dataBsDismiss);
     header.appendChild(button);
-    // button.onclick=delIframe(id);
-    button.addEventListener('click', delIframe);
+    // button.addEventListener('click', delIframe);
     // body
     var modalBody=document.createElement("div");
     modalBody.className="modal-body";
     var container=document.createElement("div");
     container.className="container";
-    container.innerHTML=description;   
-    // audio
-    // var audio=document.createElement("audio");
-    // audio.controls="controls";
-    // var source=document.createElement("source");
-    // source.src=url;
-    // source.type="audio/mp4";
-
-    // iframe
-    // var iframe=document.createElement("iframe");
-    // iframe.src=srcConvert(url);
-    // iframe.height="100px";
-    // iframe.width="100%";
-    // iframe.frameborder="0";
-    // iframe.scrolling="no";
+    container.innerHTML=description;  
 
     var container1=document.createElement("div");
     container1.className="container";
@@ -112,10 +101,8 @@ function makeIframe(){
 }
 
 function delIframe(){
-    var parent=this.parentNode.parentNode.parentNode.parentNode;
-    // var parent=document.getElementById(parentID); // modal ID
-    var iframe=parent.getElementsByTagName('IFRAME')[0]; // find iframe
-    var iframeContainer=document.getElementById(parent.id+" iframeContainer");
+    var iframe=this.getElementsByTagName('IFRAME')[0]; // find iframe
+    var iframeContainer=document.getElementById(this.id+" iframeContainer");
     iframeContainer.removeChild(iframe); // remove it to stop playing audio
     return;
 }
@@ -179,8 +166,7 @@ function episodes(xml) {
         a.setAttribute('url', src);
         a.setAttribute('modalID', tag);
         a.addEventListener('click', makeIframe); 
-        var modal=makeModal(title, description, tag, src);
-;
+        var modal=makeModal(title, description, tag);
         container.appendChild(a);
         container.appendChild(modal);
         container.appendChild(document.createElement("br"));
@@ -188,3 +174,18 @@ function episodes(xml) {
     }
 
 }
+
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+        var modals=document.getElementsByClassName("modal fade");
+        if (modals.length>0){
+            for (var i=0; i<modals.length; i++){
+                var id=modals[i].id;
+                $('#'+id).modal("hide");
+                var iframe=modals[i].getElementsByTagName('IFRAME')[0]; // find iframe
+                var iframeContainer=document.getElementById(id+" iframeContainer");
+                iframeContainer.removeChild(iframe); // remove it to stop playing audio
+            }
+        }
+    }
+})
