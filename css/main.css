@@ -3,8 +3,13 @@
     src: url(/fonts/ALoveofThunder.ttf);
 }
 
+@import url(//db.onlinewebfonts.com/c/7732caef9ed946f7916b3f650e8837c2?family=Harding+Text+Web+Regular);
+
+
 body {
-    font-family: 'Source Sans Pro', sans-serif;
+    /* font-family: 'Source Sans Pro', sans-serif; */
+    font-family: 'proxima-nova', sans-serif;
+    font-weight: 300;
     font-size: 16pt;
 }
 
@@ -15,6 +20,9 @@ body {
 a {
     color: black;
     text-decoration: none;
+}
+a:hover {
+    color: #68FFFE;
 }
 
 div.row.container {
@@ -75,16 +83,49 @@ nav ul li, footer ul li {
 footer {
     border-top: 1px solid #d5d5d5;
     font-size: .7em;
+    /* background-color: #699372; */
+    background-color:#68FFFE;
 }
 footer ul {
-  list-style-type: none;
-  list-style: none;
-  margin: 0;
+    list-style-type: none;
+    list-style: none;
+    margin: 0;
   /* padding: 12px; */
-  overflow: hidden;
+    overflow: hidden;
 }
 footer a, footer a btn btn-rss{
-  color: gray;
+    color: gray;
+}
+
+[class^="icons"] {
+    height: 25px;
+    width: 25px;
+    position: relative;
+    vertical-align: -5px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.icons-mail {
+    content: url('/files/email.svg');
+/* display: inline-block; */
+}
+
+
+.icons-twitter {
+    content: url('/files/twitter.svg');
+
+/* display: inline-block; */
+}
+
+
+.icons-apple {
+    content: url('/files/apple.svg');
+/* display: inline-block; */
+}
+
+.icons-spotify {
+    content: url('/files/spotify.svg')
 }
 
 @media only screen and (min-width: 765px) {
