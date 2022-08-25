@@ -136,8 +136,8 @@ function episodes(xml) {
         var rawDate=x[i].getElementsByTagName("pubDate")[0].childNodes[0].nodeValue;
         var dateString = date(rawDate);
         var duration=x[i].getElementsByTagName("itunes:duration")[0].childNodes[0].nodeValue;
-        var min=Math.floor(duration/60);
-        // var s=Math.round((duration/60-min)*60);
+        // var min=Math.floor(duration/60);
+        var min=duration.split(":")[1];
         var text=
         title +
         "<br>" +
